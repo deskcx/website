@@ -1,0 +1,326 @@
+.hero {
+  padding: 88px 0 76px;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--goldDeep);
+  background: var(--goldBg);
+  border: 1px solid var(--bd);
+  border-radius: 20px;
+  padding: 6px 12px 6px 10px;
+  margin-bottom: 22px;
+}
+
+.pip {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.h1 {
+  font-size: 45px;
+  line-height: 1.09;
+  font-weight: 800;
+  letter-spacing: -0.022em;
+  margin: 0 0 20px;
+}
+
+.accent {
+  color: var(--gold);
+}
+
+.lede {
+  font-size: 17px;
+  line-height: 1.62;
+  color: var(--sub);
+  max-width: 48ch;
+  margin: 0 0 32px;
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.zoneStrip {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 12.5px;
+  color: var(--mut);
+}
+
+.zones {
+  display: flex;
+  gap: 8px;
+}
+
+.zoneChip {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--sub);
+  border: 1px solid var(--bd);
+  background: var(--panel);
+  border-radius: 5px;
+  padding: 3px 8px;
+}
+
+/* ---- Hero visual: echoes the QFZP threshold gauge in the desktop app ---- */
+
+.visual {
+  background: var(--card);
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 22px;
+}
+
+.visualHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.visualTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--head);
+}
+
+.visualBadge {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--grnCol);
+  background: var(--grnBg);
+  border: 1px solid var(--grnBd);
+  border-radius: 4px;
+  padding: 2px 7px;
+}
+
+.gaugeRow {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.gaugeRing {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: conic-gradient(var(--gold) 0deg 252deg, var(--bd2) 252deg 360deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.gaugeInner {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.gaugePct {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--head);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.gaugeLbl {
+  font-size: 8.5px;
+  color: var(--mut);
+  margin-top: 2px;
+}
+
+.gaugeTitle {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--txt);
+  margin-bottom: 3px;
+}
+
+.gaugeSub {
+  font-size: 12px;
+  color: var(--sub);
+}
+
+.visualRows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.visualItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--bd2);
+  border-radius: 6px;
+  background: var(--panel);
+}
+
+.itemLabel {
+  font-size: 12.5px;
+  color: var(--txt);
+  font-weight: 500;
+}
+
+.itemValue {
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.valueOk {
+  color: var(--grnCol);
+  background: var(--grnBg);
+  border: 1px solid var(--grnBd);
+}
+
+.valueDue {
+  color: var(--goldDeep);
+  background: var(--goldBg);
+  border: 1px solid var(--bd);
+}
+
+/* ---- How it works ---- */
+
+.section {
+  padding: 64px 0;
+}
+
+.sectionHead {
+  max-width: 56ch;
+  margin-bottom: 40px;
+}
+
+.h2 {
+  font-size: 27px;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  margin: 0 0 10px;
+}
+
+.sectionLede {
+  font-size: 15.5px;
+  color: var(--sub);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.stepCard {
+  background: var(--card);
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  padding: 24px;
+}
+
+.stepLabel {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--mut);
+  letter-spacing: 0.04em;
+  margin-bottom: 14px;
+}
+
+.h3 {
+  font-size: 16.5px;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+
+.stepBody {
+  font-size: 13.5px;
+  color: var(--sub);
+  line-height: 1.58;
+  margin: 0;
+}
+
+/* ---- Closing strip ---- */
+
+.strip {
+  background: var(--panel);
+  border-top: 1px solid var(--bd);
+  border-bottom: 1px solid var(--bd);
+}
+
+.stripInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px 0;
+  gap: 24px;
+}
+
+.stripLede {
+  font-size: 14.5px;
+  color: var(--sub);
+  margin: 0;
+}
+
+.stripCtas {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 860px) {
+  .hero {
+    padding: 56px 0 48px;
+  }
+
+  .heroGrid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .h1 {
+    font-size: 34px;
+  }
+
+  .steps {
+    grid-template-columns: 1fr;
+  }
+
+  .stripInner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

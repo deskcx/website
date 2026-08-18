@@ -1,0 +1,59 @@
+.page {
+  padding: 72px 0 88px;
+}
+
+.inner {
+  max-width: 62ch;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 14px;
+}
+
+.lede {
+  font-size: 16.5px;
+  line-height: 1.62;
+  color: var(--sub);
+  margin: 0 0 32px;
+}
+
+.note {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: var(--goldBg);
+  border: 1px solid var(--bd);
+  border-radius: 8px;
+  padding: 16px 18px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--sub);
+}
+
+.noteBar {
+  width: 3px;
+  align-self: stretch;
+  border-radius: 2px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+.noteBody strong {
+  color: var(--head);
+  display: block;
+  margin-bottom: 3px;
+  font-size: 13px;
+}
+
+@media (max-width: 860px) {
+  .page {
+    padding: 48px 0 64px;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+}
