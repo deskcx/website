@@ -1,4 +1,4 @@
-# desk-website
+# website
 
 Public marketing site for **The Desk** — a desktop app for tracking UAE free zone
 compliance (QFZP thresholds, VAT, ESR & UBO) per entity.
