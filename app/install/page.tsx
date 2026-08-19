@@ -10,9 +10,23 @@ const REPO = 'deskcx/releases';
 const MAC_ASSET = 'The-Desk-UAE-macos-arm64.dmg';
 const LATEST_MAC = `https://github.com/${REPO}/releases/latest/download/${MAC_ASSET}`;
 
-// The releases repo is public, so this needs no token. Revalidating hourly keeps the
-// page current without spending the unauthenticated GitHub rate limit on every visit.
-export const revalidate = 3600;
+// The releases repo is public, so this needs no token.
+//
+// Five minutes, not an hour. Revalidation here is *lazy*: when the window
+// expires the next visitor is still served the stale page while a fresh one is
+// generated behind them, so the real delay is the window plus however long
+// until someone visits twice. At an hour that meant publishing v0.2.0 and
+// watching the Install page keep advertising v0.1.0 — the download link itself
+// was correct the whole time, since it points at /releases/latest, but the
+// version shown beside it was not.
+//
+// Five minutes costs at most 12 unauthenticated GitHub calls an hour against a
+// limit of 60, and only when someone is actually reading the page.
+//
+// The proper fix is on-demand revalidation triggered by a release webhook. That
+// is worth doing when releases become frequent; until then this is the cheap
+// 95%.
+export const revalidate = 300;
 
 type GitHubAsset = {
   name: string;
