@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import CopyCommand from '@/components/CopyCommand';
 import styles from './install.module.css';
 
 export const metadata: Metadata = {
@@ -144,14 +145,57 @@ export default async function Install() {
         <div className={styles.warning}>
           <span className={styles.warningBar} />
           <div>
-            <strong>This build is not yet signed by Apple.</strong>
+            <strong>Setting up on macOS takes one extra step.</strong>
             <p>
-              macOS will block it the first time you open it. Until we ship a notarized build, open{' '}
-              <em>System Settings → Privacy &amp; Security</em>, then click{' '}
-              <em>Open Anyway</em> next to The Desk UAE.
+              This build is not yet signed by Apple, so macOS will refuse to open it and report that
+              the app is <em>damaged</em>. Nothing is wrong with the download — that is simply the
+              message macOS shows for software it cannot verify. Follow the three steps below and it
+              will open normally.
             </p>
           </div>
         </div>
+
+        <section className={styles.steps}>
+          <ol className={styles.stepList}>
+            <li>
+              <h3 className={styles.stepTitle}>Move the app to Applications</h3>
+              <p className={styles.stepBody}>
+                Open the downloaded <code className={styles.inlineCode}>.dmg</code> and drag{' '}
+                <strong>The Desk UAE</strong> onto the Applications folder shown beside it.
+              </p>
+            </li>
+
+            <li>
+              <h3 className={styles.stepTitle}>Run one command in Terminal</h3>
+              <p className={styles.stepBody}>
+                Open Terminal (press <kbd className={styles.kbd}>⌘</kbd>{' '}
+                <kbd className={styles.kbd}>Space</kbd>, type <em>Terminal</em>, press Return), then
+                paste this and press Return:
+              </p>
+              <CopyCommand command={'xattr -cr "/Applications/The Desk UAE.app"'} />
+              <p className={styles.stepNote}>
+                Do this <strong>before</strong> opening the app. If you have already tried and seen
+                the &ldquo;damaged&rdquo; message, choose <em>Cancel</em> — not{' '}
+                <em>Move to Bin</em> — then run the command.
+              </p>
+            </li>
+
+            <li>
+              <h3 className={styles.stepTitle}>Open The Desk</h3>
+              <p className={styles.stepBody}>
+                Launch it from Applications as usual. You only need to do this once; updates will
+                not ask again.
+              </p>
+            </li>
+          </ol>
+
+          <p className={styles.stepsFootnote}>
+            <strong>What that command does:</strong> when a browser downloads a file, macOS tags it
+            as coming from the internet, and Gatekeeper checks that tag before allowing the app to
+            run. The command removes the tag. We are working on an Apple-signed build so this step
+            goes away.
+          </p>
+        </section>
 
         <section className={styles.history}>
           <h2 className={styles.historyTitle}>Release history</h2>

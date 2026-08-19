@@ -115,7 +115,7 @@
   border: 1px solid var(--bd);
   border-radius: 8px;
   padding: 16px 18px;
-  margin-bottom: 56px;
+  margin-bottom: 28px;
 }
 
 .warningBar {
@@ -144,6 +144,124 @@
   font-style: normal;
   font-weight: 600;
   color: var(--txt);
+}
+
+/* ---- macOS setup steps ---- */
+
+.steps {
+  margin-bottom: 56px;
+}
+
+.stepList {
+  list-style: none;
+  counter-reset: step;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/*
+ * Numbers are meaningful here — the xattr command must run before the first
+ * launch, so the order is instruction, not decoration.
+ */
+.stepList > li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 42px;
+}
+
+.stepList > li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--goldBg);
+  border: 1px solid var(--bd);
+  color: var(--goldDeep);
+  font-size: 12.5px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.stepTitle {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--head);
+  margin: 3px 0 6px;
+}
+
+.stepBody {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--sub);
+  margin: 0 0 12px;
+  max-width: 72ch;
+}
+
+.stepNote {
+  font-size: 13px;
+  line-height: 1.58;
+  color: var(--mut);
+  margin: 10px 0 0;
+  max-width: 72ch;
+}
+
+.stepNote strong,
+.stepBody strong {
+  color: var(--txt);
+  font-weight: 600;
+}
+
+.stepNote em,
+.stepBody em {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--txt);
+}
+
+.inlineCode {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Cascadia Mono', monospace;
+  font-size: 0.92em;
+  background: var(--panel);
+  border: 1px solid var(--bd2);
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+
+.kbd {
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--txt);
+  background: var(--panel);
+  border: 1px solid var(--bd);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  padding: 1px 6px;
+  white-space: nowrap;
+}
+
+.stepsFootnote {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--mut);
+  margin: 26px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--bd2);
+  max-width: 78ch;
+}
+
+.stepsFootnote strong {
+  color: var(--sub);
+  font-weight: 600;
 }
 
 /* ---- Release history ---- */
