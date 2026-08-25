@@ -46,6 +46,21 @@ type GitHubRelease = {
   assets: GitHubAsset[];
 };
 
+// From v0.3.0 a release carries updater artefacts beside the installer:
+// `latest.json`, the `.app.tar.gz` the in-app updater downloads, and its `.sig`.
+// None of those are things a person installs, and listing them gave v0.3.0 four
+// rows in the history table — one of them `latest.json` at "0.0 MB".
+//
+// Matched on installer extension rather than by excluding the three artefact
+// names we ship today, so a change to the updater's packaging can't leak new
+// rows back into the table.
+const INSTALLER_EXTENSIONS = ['.dmg', '.exe', '.msi', '.appimage', '.deb', '.rpm'];
+
+function isInstaller(asset: GitHubAsset) {
+  const name = asset.name.toLowerCase();
+  return INSTALLER_EXTENSIONS.some((ext) => name.endsWith(ext));
+}
+
 async function getReleases(): Promise<GitHubRelease[] | null> {
   try {
     const res = await fetch(`https://api.github.com/repos/${REPO}/releases?per_page=20`, {
@@ -54,7 +69,9 @@ async function getReleases(): Promise<GitHubRelease[] | null> {
     });
     if (!res.ok) return null;
     const releases: GitHubRelease[] = await res.json();
-    return releases.filter((r) => !r.draft);
+    return releases
+      .filter((r) => !r.draft)
+      .map((r) => ({ ...r, assets: r.assets.filter(isInstaller) }));
   } catch {
     // A GitHub outage should degrade the table, not break the page or the build.
     return null;
