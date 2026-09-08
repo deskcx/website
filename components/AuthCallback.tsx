@@ -73,6 +73,28 @@ export default function AuthCallback() {
       return;
     }
 
+    // Preferred path: the email links here with a token_hash, and this page
+    // exchanges it with a POST.
+    //
+    // The reason is that GET /auth/v1/verify consumes the token. Mail scanners,
+    // inbox previews and browser prefetchers all fetch links before a human
+    // clicks, so the old ConfirmationURL was routinely spent before it was ever
+    // used: the account came out verified and the person clicking saw "this
+    // link did not work", which is the exact opposite of what happened.
+    //
+    // Pointing the email at this page instead makes the prefetch harmless — a
+    // GET here renders static HTML — and the exchange happens only when a real
+    // browser runs this code.
+    const tokenHash = query.get('token_hash');
+    const queryType = query.get('type');
+
+    if (tokenHash) {
+      void exchangeTokenHash(tokenHash, queryType);
+      return;
+    }
+
+    // Legacy path, kept for invitations emailed before the template changed.
+    // Their links still carry the fragment, and they are valid for 14 days.
     const token = frag.access_token;
     const type = frag.type;
 
@@ -91,6 +113,44 @@ export default function AuthCallback() {
       setMode({ kind: 'setPassword', token, invite: type === 'invite' });
     } else {
       setMode({ kind: 'confirmed' });
+    }
+
+    async function exchangeTokenHash(hash: string, kind: string | null) {
+      const verifyType = kind ?? 'invite';
+      try {
+        const res = await fetch(`${SUPABASE_URL}/auth/v1/verify`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', apikey: ANON_KEY as string },
+          body: JSON.stringify({ type: verifyType, token_hash: hash }),
+        });
+        const body = await res.json().catch(() => ({}));
+
+        if (!res.ok || !body.access_token) {
+          setMode({
+            kind: 'error',
+            message:
+              body.error_description ??
+              body.msg ??
+              'This link could not be verified. It may have already been used.',
+          });
+          return;
+        }
+
+        if (verifyType === 'recovery' || verifyType === 'invite') {
+          setMode({
+            kind: 'setPassword',
+            token: body.access_token,
+            invite: verifyType === 'invite',
+          });
+        } else {
+          setMode({ kind: 'confirmed' });
+        }
+      } catch {
+        setMode({
+          kind: 'error',
+          message: 'The authentication server could not be reached. Please try again.',
+        });
+      }
     }
   }, []);
   /* eslint-enable react-hooks/set-state-in-effect */
