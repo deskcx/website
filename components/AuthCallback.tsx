@@ -131,6 +131,30 @@ export default function AuthCallback() {
         );
         return;
       }
+      // An invited user's organisation membership and entity access are applied
+      // here, not by the link itself. accept_invitation() matches on the email
+      // GoTrue just verified, so nothing sensitive travels in the URL and the
+      // invitee cannot influence what they are granted.
+      //
+      // Deliberately not fatal. The password is already set at this point, and
+      // the desktop app calls the same function on sign-in — it is idempotent
+      // precisely so this can fail quietly and still come right.
+      if (mode.invite) {
+        try {
+          await fetch(`${SUPABASE_URL}/rest/v1/rpc/accept_invitation`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              apikey: ANON_KEY as string,
+              Authorization: `Bearer ${mode.token}`,
+            },
+            body: '{}',
+          });
+        } catch {
+          /* the app retries on first sign-in */
+        }
+      }
+
       setMode({ kind: 'done' });
     } catch {
       setFormError('Could not reach the authentication server. Check your connection and try again.');
